@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @northrnrhodes
 - 👀 I’m interested in becoming a developer
 - 🌱 I’m currently learning python
-- 💞️ I’m looking to collaborate on ...
+- 💞️ I’m looking to collaborate on pretty much anything! I'm new to programming. Please help! 
 - 📫 How to reach me ...
 
 <!---
