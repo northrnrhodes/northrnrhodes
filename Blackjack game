@@ -1,0 +1,203 @@
+import random
+
+from art import logo
+from replit import clear
+
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+user_cards = []
+computer_cards = []
+should_continue = True
+blackjack = 0
+def deal_card():
+    card = random.choice(cards)
+    return card
+
+def calculate_score(card):
+  sum = 0
+  for cards in card:
+    sum += cards
+  if sum == 21:
+    return 0
+  elif sum > 21 and 11 in card:
+    card.remove(11)
+    card.append(1)
+    sum = calculate_score(card)
+    return sum
+  else:
+    return sum
+
+while should_continue:
+  play = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ")
+  clear()
+  if play == "y":
+    print(logo)
+    user_cards.append(deal_card())
+    user_cards.append(deal_card())
+    computer_cards.append(deal_card())
+    computer_cards.append(deal_card())
+    comp_card = str(computer_cards[0])
+    sum = calculate_score(user_cards)
+    if sum > 0:
+      print(f"Your cards: {user_cards}, current score: {sum}")
+      print(f"Computer's first card: {comp_card}")
+      next_card = input("Type 'y' to get another card, type 'n' to pass: ")
+
+      while next_card == "y" and sum < 21 and sum > 0:
+        user_cards.append(deal_card())
+        sum = calculate_score(user_cards)
+        
+        if sum < 21 and sum > 0:
+          print(f"Your cards: {user_cards}, current score: {sum}")
+          print(f"Computer's first card: {comp_card}")
+          next_card = input("Type 'y' to get another card, type 'n' to pass: ")
+        elif sum > 21:
+          total = calculate_score(computer_cards)
+          print(f"Your final hand: {user_cards}, final score: {sum}")
+          if total == 0:
+            print(f"Computer's final hand: {computer_cards}, final score: 21")
+            print("That's a bust!. You lose!")
+          else:
+            print(f"Computer's final hand: {computer_cards}, final score: {total}")
+            print("That's a bust!. You lose!")
+            
+        elif sum == 0:
+          print(f"Your cards: {user_cards}, current score: 21")
+          print(f"Computer's first card: {comp_card}")
+          next_card = input("Type 'y' to get another card, type 'n' to pass: ")
+        else:
+          total = calculate_score(computer_cards)
+          if total < 17 and total > 0:
+            while total < 17 and total > 0:
+              computer_cards.append(deal_card())
+              total = calculate_score(computer_cards)
+              if total > 21:
+                print(f"Your final hand: {user_cards}, final score: 21")
+                print(f"Computer's final hand: {computer_cards}, final score: {total}")
+                print(f"The computer went over. That's a bust! You win!")
+
+          elif total == 0:
+            print(f"Your final hand: {user_cards}, final score: 21") 
+            print(f"Computer's final hand: {computer_cards}, final score: 21")
+            print(f"It's a draw!")
+            should_continue = True
+
+    elif sum == 0:
+      next_card = "n"
+      total = calculate_score(computer_cards)
+      should_continue = False
+      if total < 17 and total > 0:
+        while total < 17 and total > 0:
+          computer_cards.append(deal_card())
+          total = calculate_score(computer_cards)
+        if total > 21:
+          print(f"Your final hand: {user_cards}, final score: 21")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"The computer went over. That's a bust! You win!")
+          should_continue = False
+          
+        elif total == 0:
+          print(f"Your final hand: {user_cards}, final score: 21") 
+          print(f"Computer's final hand: {computer_cards}, final score: 21")
+          print(f"It's a draw!")
+          
+        else:
+          print(f"Your final hand: {user_cards}, final score: 21")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"Blackjack! You win!")   
+    
+    if next_card == "n" and should_continue:
+      total = calculate_score(computer_cards)
+      if total < 17 and total > 0:
+        while total < 17 and total > 0 and total < 21:
+          computer_cards.append(deal_card())
+          total = calculate_score(computer_cards)
+        if total > 21 and sum < 21 and sum > 0:
+          print(f"Your final hand: {user_cards}, final score: {sum}")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"The computer went over. That's a bust! You win!")
+  
+        elif total >= 17 and total > sum and sum > 0:
+          print(f"Your final hand: {user_cards}, final score: {sum}")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"You lose!")
+          
+        elif total >= 17 and sum == 0:
+          print(f"Your final hand: {user_cards}, final score: 21")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"You win!")
+          
+        elif total == 0 and sum > 0:
+          print(f"Your final hand: {user_cards}, final score: {sum}")
+          print(f"Computer's final hand: {computer_cards}, final score: 21")
+          print(f"You lose!")
+          
+        elif total == 0 and sum == 0:
+          print(f"Your final hand: {user_cards}, final score: 21") 
+          print(f"Computer's final hand: {computer_cards}, final score: 21")
+          print(f"It's a draw!")
+          
+        elif total == sum:
+          print(f"Your final hand: {user_cards}, final score: {sum}") 
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"It's a draw!")
+          
+        elif sum > total:
+          print(f"Your final hand: {user_cards}, final score: {sum}")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"You win!")
+        
+        elif sum == 0 and total > 21:
+          print(f"Your final hand: {user_cards}, final score: 21")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"The computer went over. That's a bust! You win!")
+        elif sum == 21 and total > 21:
+          print(f"Your final hand: {user_cards}, final score: 21")
+          print(f"Computer's final hand: {computer_cards}, final score: {total}")
+          print(f"The computer went over. That's a bust! You win!")
+          should_continue = False
+
+        elif sum == 21 and total == 0:
+          print(f"Your final hand: {user_cards}, final score: 21") 
+          print(f"Computer's final hand: {computer_cards}, final score: 21")
+          print(f"It's a draw!")
+          should_continue = False
+          
+
+      elif total == 0 and sum == 0:
+        print(f"Your final hand: {user_cards}, final score: 21") 
+        print(f"Computer's final hand: {computer_cards}, final score: 21")
+        print(f"It's a draw!")
+
+      elif total >= 17 and total < sum:
+        print(f"Your final hand: {user_cards}, final score: {sum}")
+        print(f"Computer's final hand: {computer_cards}, final score: {total}")
+        print(f"You win!")
+        
+      elif total == 0 and sum > 0:
+        print(f"Your final hand: {user_cards}, final score: {sum}")
+        print(f"Computer's final hand: {computer_cards}, final score: 21")
+        print(f"You lose!")
+      
+      elif total == sum:
+        print(f"Your final hand: {user_cards}, final score: {sum}")
+        print(f"Computer's final hand: {computer_cards}, final score: {total}")
+        print(f"It's a draw!")
+        
+      elif total > sum and sum > 0:
+        print(f"Your final hand: {user_cards}, final score: {sum}")
+        print(f"Computer's final hand: {computer_cards}, final score: {total}")
+        print(f"You lose!")
+      elif total == 0 and sum == 21:
+        print(f"Your final hand: {user_cards}, final score: 21")
+        print(f"Computer's final hand: {computer_cards}, final score: 21")
+        print(f"It's a draw!")
+        should_continue = False
+        
+
+    user_cards = []  
+    computer_cards = []
+    should_continue = True
+
+  else:
+    should_continue = False
