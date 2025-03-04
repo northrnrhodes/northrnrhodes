@@ -1,7 +1,7 @@
 - 👋 Hi, I’m @northrnrhodes
-- 👀 I’m interested in becoming a developer
-- 🌱 I’m currently learning python
-- 💞️ I’m looking to collaborate on pretty much anything! I'm new to programming. Please help! 
+- 👀 Aspiring Developer
+- 🌱 FLuent in HTML , CSS, Python 🐍 [![python](https://cdn3.emoji.gg/emojis/1887_python.png)](https://emoji.gg/emoji/1887_python)
+- - 💞️ 
 - 📫 How to reach me ...
 
 <!---
